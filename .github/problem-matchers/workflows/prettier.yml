@@ -1,0 +1,42 @@
+name: Prettier
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+
+jobs:
+    prettier:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [16.x]
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  # Make sure the actual branch is checked out when running on pull requests
+                  ref: ${{ github.head_ref }}
+                  repository: ${{github.event.pull_request.head.repo.full_name || github.repository }}
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install dependencies
+              run: yarn install --immutable
+
+            - name: Run prettier
+              run: yarn run prettier:check
+
+            - name: Run actual reformat if bad
+              run: yarn run prettier
+              if: ${{ failure() }}
+
+            - name: Show diff
+              run: git diff
+              if: ${{ failure() }}

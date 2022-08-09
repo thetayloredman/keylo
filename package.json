@@ -6,10 +6,54 @@
   "repository": "https://github.com/thetayloredman/keylo",
   "author": "LogN",
   "license": "GPL-3.0",
-  "private": false,
   "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/eslint-parser": "^7.18.9",
+    "@types/eslint": "^8.4.5",
     "@types/node": "^18.6.5",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "commitlint": "^17.0.3",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-deprecation": "^1.3.2",
+    "eslint-plugin-license-header": "^0.6.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "tsc-alias": "^1.7.0",
     "typescript": "^4.7.4"
-  }
+  },
+  "scripts": {
+      "lint": "eslint .",
+      "build": "tsc; tsc-alias",
+      "build:noalias": "tsc",
+      "prettier:check": "prettier . --check",
+      "prettier": "prettier . -w",
+      "prepare": "husky install",
+      "test": "yarn run lint; yarn run prettier:check; yarn run build",
+      "test:staged": "npx lint-staged"
+  },
+  "lint-staged": {
+      "*.ts": [
+          "eslint",
+          "prettier --write"
+      ],
+      "*.js": [
+          "eslint",
+          "prettier --write"
+      ],
+      "*.md": [
+          "prettier --write"
+      ],
+      "*.yml": [
+          "prettier --write"
+      ],
+      "*.json": [
+          "prettier --write"
+      ]
+  },
+  "packageManager": "yarn@3.2.2"
 }
