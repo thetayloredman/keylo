@@ -1,0 +1,15 @@
+{
+  "name": "keylo",
+  "version": "1.0.0",
+  "description": "Simple ATC clearance copying tool",
+  "main": "dist/index.js",
+  "repository": "https://github.com/thetayloredman/keylo",
+  "author": "LogN",
+  "license": "GPL-3.0",
+  "private": false,
+  "devDependencies": {
+    "@types/node": "^18.6.5",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
+}
